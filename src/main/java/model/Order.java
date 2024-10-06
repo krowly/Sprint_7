@@ -1,6 +1,5 @@
 package model;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+
 
 public class Order {
     private String firstName;
