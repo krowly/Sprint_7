@@ -1,74 +1,76 @@
-import api.CourierClientApi;
 import io.qameta.allure.junit4.DisplayName;
 import jdk.jfr.Description;
 import model.Courier;
 import org.junit.Before;
-import io.restassured.*;
 import org.junit.Test;
-import static api.CourierClientApi.*;
-import static api.CourierClientApi.createCourierResponse;
-import static org.hamcrest.CoreMatchers.notNullValue;
-
 import java.time.LocalDateTime;
 
-public class CourierLoginTest {
-    private final String login = "ninja"+ LocalDateTime.now().toString();
-    private final String password = "1234"+ LocalDateTime.now().toString();
-    private final String firstName = "ninja"+ LocalDateTime.now().toString() + "name";
+import static api.CourierClientApi.*;
+import static api.CourierClientApi.createCourierResponse;
+import static org.apache.http.HttpStatus.*;
+import static org.hamcrest.CoreMatchers.notNullValue;
+
+
+public class CourierLoginTest extends CourierBaseTest {
+    private final String LOGIN = "ninja"+ LocalDateTime.now().toString();
+    private final String PASSWORD = "1234"+ LocalDateTime.now().toString();
+    private final String FIRSTNAME = "ninja"+ LocalDateTime.now().toString() + "name";
+    private Courier testCourier;
+    //Тест создает курьера для последующего входа
     @Before
     public void createCourier() {
-        System.out.println();createCourierResponse(new Courier(login, password, password));
+        courier = new Courier(LOGIN, PASSWORD, FIRSTNAME);
+        createCourierResponse(courier);
     }
 
     @Test
     @DisplayName("Логин валидного курьера") // имя теста
-    @Description("Тест создает курьера на сайте и впоследствии заходит в него.")
-    public void loginCourierTest1() {
-        Courier courier = new Courier(login, password);
-        loginCourierResponse(courier)
+    @Description("Попытка входа с валидными данными")
+    public void loginValidCourierTest() {
+        testCourier = new Courier(LOGIN, PASSWORD);
+        loginCourierResponse(testCourier)
                 .then()
                 .assertThat()
-                .statusCode(200)
+                .statusCode(SC_OK)
                 .body("id", notNullValue());
-
     }
     @Test
     @DisplayName("Попытка входа с неверным логином") // имя теста
-    public void loginCourierTest2() {
-        Courier courier = new Courier("wronglogin", password);
-        loginCourierResponse(courier)
+    public void loginWrongLoginTest() {
+        testCourier = new Courier("WrongLogin", PASSWORD);
+        loginCourierResponse(testCourier)
                 .then()
                 .assertThat()
-                .statusCode(404);
+                .statusCode(SC_NOT_FOUND);
     }
     @Test
     @DisplayName("Попытка входа с неверным паролем") // имя теста
 
-    public void loginCourierTest3() {
-        Courier courier = new Courier(login, "wrongpass");
-        loginCourierResponse(courier)
+    public void loginWrongPasswordTest() {
+        testCourier = new Courier(LOGIN, "WrongPass");
+        loginCourierResponse(testCourier)
                 .then()
                 .assertThat()
-                .statusCode(404);
-    }
-    @Test
-    @DisplayName("Попытка входа с пустым паролем") // имя теста
-
-    public void loginCourierTest4() {
-        Courier courier = new Courier(login, "");
-        loginCourierResponse(courier)
-                .then()
-                .assertThat()
-                .statusCode(400);
+                .statusCode(SC_NOT_FOUND);
     }
     @Test
     @DisplayName("Попытка входа с пустым логином") // имя теста
 
-    public void loginCourierTest5() {
-        Courier courier = new Courier("", password);
-        loginCourierResponse(courier)
+    public void loginEmptyLoginTest() {
+        testCourier = new Courier("", PASSWORD);
+        loginCourierResponse(testCourier)
                 .then()
                 .assertThat()
-                .statusCode(400);
+                .statusCode(SC_BAD_REQUEST);
     }
+    @Test
+    @DisplayName("Попытка входа с пустым паролем") // имя теста
+    public void loginEmptyPasswordTest() {
+        testCourier = new Courier(LOGIN, "");
+        loginCourierResponse(testCourier)
+                .then()
+                .assertThat()
+                .statusCode(SC_BAD_REQUEST);
+    }
+
 }
