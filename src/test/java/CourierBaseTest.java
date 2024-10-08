@@ -14,6 +14,7 @@ public class CourierBaseTest extends BaseTest {
 
         } catch (Exception e) {
             System.out.println("В тесте произошла ошибка, возможно курьер не был удален.");
+            System.out.println(courier.getFirstname());
             System.out.println(e.toString());
         }
     }

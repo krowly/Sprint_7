@@ -1,3 +1,4 @@
+import io.qameta.allure.internal.shadowed.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
 import org.junit.Before;
 

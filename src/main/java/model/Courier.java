@@ -1,41 +1,15 @@
 package model;
 
+import io.qameta.allure.internal.shadowed.jackson.annotation.JsonAutoDetect;
+import lombok.*;
+
+@Data
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class Courier {
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
+    @NonNull
     private String login;
+    @NonNull
     private String password;
-    private String firstName;
-
-    public Courier(String login, String password, String firstName) {
-        this.login = login;
-        this.password = password;
-        this.firstName = firstName;
-    }
-    public Courier(String login, String password) {
-        this.login = login;
-        this.password = password;
-    }
+    private String firstname;
 }

@@ -5,7 +5,7 @@ import static api.OrderClientApi.getOrderList;
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.hamcrest.CoreMatchers.notNullValue;
 
-public class OrderListTest extends OrderBaseTest {
+public class OrderListTest extends BaseTest {
     @Test
     @DisplayName("Получение списка заказов")
     public void getOrderListTest() {

@@ -12,9 +12,9 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 
 
 public class CourierLoginTest extends CourierBaseTest {
-    private final String LOGIN = "ninja"+ LocalDateTime.now().toString();
-    private final String PASSWORD = "1234"+ LocalDateTime.now().toString();
-    private final String FIRSTNAME = "ninja"+ LocalDateTime.now().toString() + "name";
+    private String LOGIN = "ninja"+ LocalDateTime.now().toString();
+    private String PASSWORD = "1234"+ LocalDateTime.now().toString();
+    private String FIRSTNAME = "ninja"+ LocalDateTime.now().toString() + "name";
     private Courier testCourier;
     //Тест создает курьера для последующего входа
     @Before

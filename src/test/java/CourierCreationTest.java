@@ -10,14 +10,16 @@ import static org.apache.http.HttpStatus.SC_CREATED;
 import static org.hamcrest.Matchers.equalTo;
 
 public class CourierCreationTest extends CourierBaseTest {
-    private final String LOGIN = "ninja"+ LocalDateTime.now().toString();
+     private final String LOGIN = "ninja"+ LocalDateTime.now().toString();
     private final String PASSWORD = "1234"+ LocalDateTime.now().toString();
     private final String FIRSTNAME = "ninja"+ LocalDateTime.now().toString() + "name";
     @Test
     @DisplayName("Создание валидного курьера") // имя теста
     @Description("Данные генерируется с использованием даты.")
     public void createCourierTest() {
+
         courier = new Courier(LOGIN, PASSWORD, FIRSTNAME);
+
         createCourierResponse(courier)
                 .then()
                 .assertThat()

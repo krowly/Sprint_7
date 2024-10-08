@@ -11,7 +11,7 @@ import static test.data.OrderData.ORDERS;
 import static api.OrderClientApi.createOrderApi;
 
 @RunWith(Parameterized.class)
-public class OrderCreationTest extends OrderBaseTest{
+public class OrderCreationTest extends BaseTest {
 
     private Order order;
 
